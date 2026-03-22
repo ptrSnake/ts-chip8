@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CHIP-8 Emulator</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #1a1a2e;
+      color: #e0e0e0;
+      font-family: monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+      gap: 16px;
+      min-height: 100vh;
+    }
+    h1 { font-size: 1.5rem; letter-spacing: 0.1em; color: #a0cfff; }
+    canvas {
+      display: block;
+      border: 2px solid #444;
+      image-rendering: pixelated;
+      background: #000;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+    }
+    button {
+      background: #2a2a4a;
+      border: 1px solid #555;
+      color: #e0e0e0;
+      padding: 6px 16px;
+      cursor: pointer;
+      font-family: monospace;
+      font-size: 0.9rem;
+      border-radius: 4px;
+    }
+    button:hover { background: #3a3a6a; }
+    label { font-size: 0.85rem; color: #aaa; }
+    input[type="file"] {
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #e0e0e0;
+      background: #2a2a4a;
+      border: 1px solid #555;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    select {
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #e0e0e0;
+      background: #2a2a4a;
+      border: 1px solid #555;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    input[type="range"] { cursor: pointer; }
+    .keymap {
+      font-size: 0.75rem;
+      color: #888;
+      text-align: center;
+      line-height: 1.6;
+    }
+    .keymap kbd {
+      display: inline-block;
+      background: #2a2a4a;
+      border: 1px solid #555;
+      border-radius: 3px;
+      padding: 1px 5px;
+      font-size: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>CHIP-8 Emulator</h1>
+
+  <canvas id="screen" width="640" height="320"></canvas>
+
+  <div class="controls">
+    <label>ROM file: <input type="file" id="rom-file" accept=".ch8,.rom,.bin" /></label>
+    <label>Demo ROM:
+      <select id="rom-select">
+        <option value="">— select —</option>
+        <option value="/public/roms/ibm_logo.ch8">IBM Logo</option>
+        <option value="/public/roms/test_opcode.ch8">Opcode Test</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="controls">
+    <button id="btn-start">▶ Start</button>
+    <button id="btn-pause">⏸ Pause</button>
+    <button id="btn-reset">↺ Reset</button>
+    <label>
+      Speed: <input type="range" id="speed" min="1" max="20" value="10" />
+      <span id="speed-label">500 Hz</span>
+    </label>
+  </div>
+
+  <div class="keymap">
+    <p>Keyboard layout (CHIP-8 key → PC key):</p>
+    <p>
+      <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>C</kbd> →
+      <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd>
+      &nbsp;&nbsp;
+      <kbd>4</kbd><kbd>5</kbd><kbd>6</kbd><kbd>D</kbd> →
+      <kbd>Q</kbd><kbd>W</kbd><kbd>E</kbd><kbd>R</kbd>
+    </p>
+    <p>
+      <kbd>7</kbd><kbd>8</kbd><kbd>9</kbd><kbd>E</kbd> →
+      <kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><kbd>F</kbd>
+      &nbsp;&nbsp;
+      <kbd>A</kbd><kbd>0</kbd><kbd>B</kbd><kbd>F</kbd> →
+      <kbd>Z</kbd><kbd>X</kbd><kbd>C</kbd><kbd>V</kbd>
+    </p>
+  </div>
+
+  <script type="module" src="/public/bundle.js"></script>
+</body>
+</html>
